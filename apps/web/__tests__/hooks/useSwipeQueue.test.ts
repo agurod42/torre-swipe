@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { renderHook, act } from "@testing-library/react";
+import { renderHook, act, waitFor } from "@testing-library/react";
 import { useSwipeStore } from "../../store/swipeStore";
 import type { Opportunity, Organization, Compensation, Skill, Place } from "@torre-swipe/types";
 
@@ -46,7 +46,7 @@ function resetStore() {
 describe("useSwipeQueue", () => {
   beforeEach(() => {
     resetStore();
-    vi.clearAllMocks();
+    vi.resetAllMocks();
   });
 
   it("triggers initial fetch on mount when queue is empty", async () => {
@@ -57,13 +57,14 @@ describe("useSwipeQueue", () => {
       renderHook(() => useSwipeQueue());
     });
 
+    await waitFor(() => {
+      expect(useSwipeStore.getState().queue).toHaveLength(5);
+    });
     expect(mockFetch).toHaveBeenCalledOnce();
-    expect(useSwipeStore.getState().queue).toHaveLength(5);
   });
 
   it("does not fetch again when queue already has cards", async () => {
     useSwipeStore.setState({ queue: [makeOpp("existing")] });
-    mockFetch.mockResolvedValueOnce({ total: 0, size: 0, results: [] });
 
     await act(async () => {
       renderHook(() => useSwipeQueue());
@@ -82,7 +83,9 @@ describe("useSwipeQueue", () => {
       renderHook(() => useSwipeQueue());
     });
 
-    // Cards 0 and 1 should be filtered out
+    await waitFor(() => {
+      expect(useSwipeStore.getState().queue).toHaveLength(3);
+    });
     const queueIds = useSwipeStore.getState().queue.map((c) => c.id);
     expect(queueIds).not.toContain("0");
     expect(queueIds).not.toContain("1");
@@ -96,11 +99,14 @@ describe("useSwipeQueue", () => {
       renderHook(() => useSwipeQueue());
     });
 
-    expect(useSwipeStore.getState().fetchError).toBeTruthy();
-    expect(useSwipeStore.getState().isFetching).toBe(false);
+    await waitFor(() => {
+      expect(useSwipeStore.getState().fetchError).toBeTruthy();
+      expect(useSwipeStore.getState().isFetching).toBe(false);
+    });
   });
 
   it("exposes fetchMore function", () => {
+    useSwipeStore.setState({ queue: [makeOpp("existing")] });
     const { result } = renderHook(() => useSwipeQueue());
     expect(typeof result.current.fetchMore).toBe("function");
   });
