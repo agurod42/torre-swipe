@@ -7,6 +7,6 @@ export type {
   Compensation,
   Skill,
   Place,
-} from "./opportunity.js";
+} from "./opportunity";
 
-export type { StorageStrategy } from "./storage.js";
+export type { StorageStrategy } from "./storage";

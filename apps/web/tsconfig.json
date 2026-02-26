@@ -1,13 +1,35 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "plugins": [{ "name": "next" }],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "paths": {
-      "@/*": ["./*"],
-      "@torre-swipe/types": ["../../packages/types/src/index.ts"],
-      "@torre-swipe/torre-client": ["../../packages/torre-client/src/index.ts"]
-    }
+      "@/*": [
+        "./*"
+      ],
+      "@torre-swipe/types": [
+        "../../packages/types/src/index.ts"
+      ],
+      "@torre-swipe/torre-client": [
+        "../../packages/torre-client/src/index.ts"
+      ]
+    },
+    "allowJs": true,
+    "noEmit": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

@@ -48,7 +48,7 @@
   - `@torre-swipe/types` — TypeScript types only, no runtime code.
   - `@torre-swipe/torre-client` — `TorreClient`, `TorreApiError`, `LocalStorageStrategy`.
 - **No build step for shared packages** — workspace packages are consumed via TypeScript path aliases (`tsconfig.json` `paths`). The `main` field points directly to `src/index.ts`.
-- **`output: "standalone"` only in production** — both `next.config.ts` files gate the standalone output on `NODE_ENV === "production"` so that `docker-compose` hot-reload still works.
+- **`output: "standalone"` only in production** — both `next.config.mjs` files gate the standalone output on `NODE_ENV === "production"` so that `docker-compose` hot-reload still works.
 
 ---
 
