@@ -78,6 +78,7 @@
 - **E2E tests: deferred** — Playwright is listed as a future-work dependency; no E2E tests exist in v1.
 - **Mocking strategy (api)**: `vi.stubGlobal("fetch", vi.fn())` — the global `fetch` is mocked so no real HTTP calls are made.
 - **Mocking strategy (web components)**: `framer-motion` and `next/image` are mocked in component tests to avoid animation/SSR complexity.
+- **CI test automation**: GitHub Actions workflow at `.github/workflows/tests.yml` runs `pnpm test` on `push`, `pull_request`, and manual `workflow_dispatch`.
 
 ---
 
