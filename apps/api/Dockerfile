@@ -20,6 +20,7 @@ FROM base AS builder
 WORKDIR /app
 COPY --from=installer /app/ .
 COPY --from=pruner /app/out/full/ .
+COPY --from=pruner /app/tsconfig.base.json ./tsconfig.base.json
 ENV NODE_ENV=production
 RUN turbo build --filter=api
 
