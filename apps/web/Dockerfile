@@ -6,6 +6,8 @@ RUN npm install -g pnpm@9 turbo@2
 FROM base AS pruner
 WORKDIR /app
 COPY . .
+RUN test -f pnpm-workspace.yaml && grep -q '"packageManager"' package.json \
+ || (echo "ERROR: Build context must be the monorepo root. In Dokploy set Build Context to repository root and Dockerfile Path to apps/web/Dockerfile." && exit 1)
 RUN turbo prune web --docker
 
 # ---- installer: install only the pruned lockfile ------------------------
