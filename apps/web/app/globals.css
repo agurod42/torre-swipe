@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    @apply bg-bg-midnight text-slate-100;
+  }
+}
+
+@layer components {
+  /* Copied verbatim from references/ui/home-screen.html */
+  .btn-glow-red {
+    box-shadow: 0 0 15px rgba(244, 63, 94, 0.3);
+    border: 1.5px solid rgba(244, 63, 94, 0.5);
+  }
+
+  .btn-glow-blue {
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+    border: 1.5px solid rgba(59, 130, 246, 0.5);
+  }
+
+  .btn-glow-torre {
+    box-shadow: 0 0 15px rgba(204, 220, 57, 0.3);
+    border: 1.5px solid rgba(204, 220, 57, 0.5);
+  }
+
+  .card-shadow-vibrant {
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+  }
+
+  .glow-text-primary {
+    text-shadow: 0 0 8px rgba(204, 220, 57, 0.4);
+  }
+
+  /* Copied verbatim from references/ui/empty-screen.html */
+  .glow-emoji {
+    text-shadow: 0 0 30px rgba(204, 220, 57, 0.3);
+  }
+
+  .btn-refresh-shadow {
+    box-shadow: 0 8px 24px -4px rgba(204, 220, 57, 0.4);
+  }
+
+  /* Shimmer animation for SkeletonCard */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(255, 255, 255, 0.03) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* Celebration star burst */
+  @keyframes star-burst {
+    0%   { transform: scale(0); opacity: 0; }
+    60%  { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .animate-star-burst {
+    animation: star-burst 0.4s ease-out forwards;
+  }
+}
