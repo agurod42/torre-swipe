@@ -1,0 +1,60 @@
+# Local development only — bind mounts + next dev hot reload.
+# Do NOT use this file for production; use the per-app Dockerfiles instead.
+name: torre-swipe-local
+
+services:
+  api:
+    image: node:20-alpine
+    working_dir: /app
+    # corepack activates the pnpm version declared in package.json
+    command: >
+      sh -c "corepack enable &&
+             pnpm install --frozen-lockfile &&
+             pnpm --filter=api dev"
+    volumes:
+      # Bind-mount the whole monorepo for hot reload
+      - .:/app
+      # Separate named volumes for node_modules so the Linux container
+      # binaries don't clash with macOS host binaries
+      - api_node_modules:/app/apps/api/node_modules
+      - root_node_modules:/app/node_modules
+    ports:
+      - "3001:3001"
+    environment:
+      - DEBUG_LOGS=true
+      - TORRE_API_BASE_URL=https://search.torre.co
+      - PORT=3001
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3001/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+
+  web:
+    image: node:20-alpine
+    working_dir: /app
+    command: >
+      sh -c "corepack enable &&
+             pnpm install --frozen-lockfile &&
+             pnpm --filter=web dev"
+    volumes:
+      - .:/app
+      - web_node_modules:/app/apps/web/node_modules
+      - root_node_modules:/app/node_modules
+    ports:
+      - "3000:3000"
+    environment:
+      # In dev mode NEXT_PUBLIC_* is read at runtime (not baked),
+      # so localhost:3001 works because 3001 is bound to the host.
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
+      - NEXT_PUBLIC_DEBUG_LOGS=true
+      - PORT=3000
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  api_node_modules:
+  web_node_modules:
+  root_node_modules:

@@ -8,16 +8,23 @@ See [docs/SPEC.md](docs/SPEC.md) for the full product and technical specificatio
 
 ## Architecture
 
-```
-torre-ca/ (monorepo — pnpm workspaces + Turborepo)
-│
-├── apps/
-│   ├── api/          Next.js (port 3001) — BFF proxy to Torre API
-│   └── web/          Next.js (port 3000) — Swipe UI
-│
-└── packages/
-    ├── types/         Shared TypeScript types (Opportunity, StorageStrategy, …)
-    └── torre-client/  Torre API HTTP client + LocalStorageStrategy
+```mermaid
+flowchart LR
+  User[Job Seeker]
+  Web[apps/web<br/>Next.js frontend<br/>:3000]
+  Api[apps/api<br/>Next.js BFF<br/>:3001]
+  Torre[(search.torre.co)]
+  Local[(Browser localStorage)]
+  Shared[@torre-swipe/types<br/>@torre-swipe/torre-client]
+
+  User -->|Swipe / keyboard actions| Web
+  Web -->|/api/opportunities| Api
+  Api -->|Torre search request<br/>status: open| Torre
+  Torre -->|Opportunities JSON| Api
+  Api -->|Filtered response + CORS| Web
+  Web -->|Persist seen/liked/passed ids| Local
+  Web -. uses .-> Shared
+  Api -. uses .-> Shared
 ```
 
 **Why two apps?** The Torre search API does not allow cross-origin browser requests. `apps/api` acts as a Backend-for-Frontend (BFF): it receives requests from `apps/web`, proxies them server-side to Torre, and returns the results — keeping the upstream API call off the browser entirely.
