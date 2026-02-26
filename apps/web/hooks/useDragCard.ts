@@ -5,10 +5,10 @@ import {
   useMotionValue,
   useTransform,
   useAnimation,
-  animate,
 } from "framer-motion";
 import { useSwipeStore } from "../store/swipeStore";
 import { logger } from "../lib/logger";
+import { openExternalApplication } from "../lib/externalApplication";
 
 type Direction = "left" | "right" | "up";
 
@@ -44,6 +44,11 @@ export function useDragCard() {
     if (animatingRef.current) return;
     animatingRef.current = true;
     setAnimating(true);
+
+    if (direction === "right" || direction === "up") {
+      const topCard = useSwipeStore.getState().queue[0];
+      openExternalApplication(topCard?.externalApplicationUrl);
+    }
 
     const targetX =
       direction === "right" ? EXIT_X : direction === "left" ? -EXIT_X : 0;
