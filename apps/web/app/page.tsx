@@ -66,7 +66,7 @@ function Header() {
 export default function HomePage() {
   useStorageInit();
 
-  const { isAnimating, isCelebrating } = useSwipeStore();
+  const { queue, isAnimating, isCelebrating } = useSwipeStore();
   const { triggerSwipe } = useDragCard();
   const { undo } = useSwipeStore();
 
@@ -121,7 +121,7 @@ export default function HomePage() {
       <SwipeStack />
 
       {/* Action bar — only shown when there are cards (EmptyState renders its own disabled footer) */}
-      <ActionBar />
+      {queue.length > 0 && <ActionBar />}
 
       {/* Celebration overlay */}
       {isCelebrating && <CelebrationOverlay />}
