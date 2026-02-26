@@ -2,6 +2,10 @@
 
 A mobile-first web app that lets job seekers discover [Torre.ai](https://torre.ai) job opportunities through a Tinder-style swipe interface. Swipe right to like, left to pass, up to super-like. No account needed.
 
+## App Screenshot
+
+![Torre Swipe app screenshot](docs/images/app-screenshot.png)
+
 See [docs/SPEC.md](docs/SPEC.md) for the full product and technical specification.
 
 ---
@@ -15,7 +19,7 @@ flowchart LR
   Api[apps/api<br/>Next.js BFF<br/>:3001]
   Torre[(search.torre.co)]
   Local[(Browser localStorage)]
-  Shared[@torre-swipe/types<br/>@torre-swipe/torre-client]
+  Shared["@torre-swipe/types<br/>@torre-swipe/torre-client"]
 
   User -->|Swipe / keyboard actions| Web
   Web -->|/api/opportunities| Api
