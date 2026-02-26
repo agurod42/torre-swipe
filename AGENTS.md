@@ -28,6 +28,7 @@
 - **Custom CSS classes** (defined verbatim in `apps/web/app/globals.css`): `.btn-glow-red`, `.btn-glow-blue`, `.btn-glow-torre`, `.card-shadow-vibrant`, `.glow-text-primary`, `.glow-emoji`, `.btn-refresh-shadow`, `.shimmer`, `.animate-star-burst`.
 - **Like button** uses Torre primary color (`#CCDC39`), not green — overrides spec §3.5.
 - **Super like button** uses the Torre logo SVG path (`M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z`), not a star emoji — overrides spec §3.5.
+- **Header app icon** uses a custom portrait image (`/header-icon.jpg`) instead of the Torre arrow SVG in the top-left badge — overrides `home-screen.html`.
 - **Card layout**: banner image area (h-44) with gradient overlay + company logo at bottom-left, followed by content area — matches `home-screen.html`'s card structure.
 - **Card border-radius**: `rounded-[32px]` for cards, `rounded-[48px]` reserved for phone frame (not used in production app).
 - **Font**: Inter (400, 500, 600, 700), loaded via `next/font/google`.

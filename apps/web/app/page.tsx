@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 import { LocalStorageStrategy } from "@torre-swipe/torre-client";
 import { useSwipeStore, initSwipeStore } from "../store/swipeStore";
 import { useDragCard } from "../hooks/useDragCard";
@@ -30,11 +31,15 @@ function Header() {
     <header className="flex justify-between items-center px-6 py-4">
       {/* Logo + title */}
       <div className="flex items-center gap-2">
-        <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/40">
-          {/* Torre logo SVG — from references/ui/home-screen.html */}
-          <svg className="w-6 h-6 text-bg-midnight fill-current" viewBox="0 0 24 24">
-            <path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z" />
-          </svg>
+        <div className="w-9 h-9 rounded-xl overflow-hidden shadow-lg shadow-primary/40">
+          <Image
+            src="/header-icon.jpg"
+            alt="Torre Swipe icon"
+            width={36}
+            height={36}
+            className="w-full h-full object-cover"
+            priority
+          />
         </div>
         <h1 className="text-xl font-bold tracking-tight text-white glow-text-primary">
           Torre Swipe
