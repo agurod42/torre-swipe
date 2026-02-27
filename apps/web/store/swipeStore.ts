@@ -35,7 +35,7 @@ type SwipeStore = {
   setCelebrating: (v: boolean) => void;
 };
 
-export const useSwipeStore = create<SwipeStore>((set, get) => ({
+export const useSwipeStore = create<SwipeStore>((set) => ({
   queue: [],
   seenIds: new Set(),
   isFetching: false,
