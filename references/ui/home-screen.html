@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Torre Swipe - Vibrant Dark Mode</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#CCDC39", // Accurate Torre accent color
+            "bg-midnight": "#0B0E14",
+            "card-dark": "#1C1F26",
+            "card-dark-lighter": "#282C35",
+            "neon-cyan": "#A5F3FC",
+            "neon-magenta": "#FBCFE8",
+            "neon-amber": "#FDE68A",
+          },
+          fontFamily: {
+            display: ["Inter", "sans-serif"],
+          },
+          borderRadius: {
+            DEFAULT: "16px",
+          },
+        },
+      },
+    };
+  </script>
+<style type="text/tailwindcss">
+    @layer base {
+      body {
+        font-family: 'Inter', sans-serif;
+        -webkit-tap-highlight-color: transparent;
+        @apply bg-bg-midnight text-slate-100;
+      }
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .btn-glow-red {
+      box-shadow: 0 0 15px rgba(244, 63, 94, 0.3);
+      border: 1.5px solid rgba(244, 63, 94, 0.5);
+    }
+    .btn-glow-blue {
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+      border: 1.5px solid rgba(59, 130, 246, 0.5);
+    }
+    .btn-glow-torre {
+      box-shadow: 0 0 15px rgba(204, 220, 57, 0.3);
+      border: 1.5px solid rgba(204, 220, 57, 0.5);
+    }
+    .card-shadow-vibrant {
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+    }
+    .glow-text-primary {
+      text-shadow: 0 0 8px rgba(204, 220, 57, 0.4);
+    }.torre-logo-icon {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex justify-center items-center min-h-screen p-4 overflow-hidden">
+<div class="relative w-full max-w-[400px] h-[812px] bg-bg-midnight overflow-hidden flex flex-col rounded-[48px] border-[8px] border-slate-800 shadow-2xl">
+<div class="flex justify-between items-center px-8 pt-4 pb-2 text-white/90">
+<span class="text-sm font-semibold">9:41</span>
+<div class="flex gap-1.5 items-center">
+<span class="material-symbols-outlined text-[18px]">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[18px]">wifi</span>
+<span class="material-symbols-outlined text-[18px]">battery_full</span>
+</div>
+</div>
+<header class="flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-9 h-9 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/40">
+<svg class="w-6 h-6 text-bg-midnight fill-current" viewBox="0 0 24 24">
+<path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z"></path>
+</svg>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-white glow-text-primary">Torre Swipe</h1>
+</div>
+<button class="w-10 h-10 bg-card-dark-lighter rounded-full flex items-center justify-center text-slate-400 border border-white/5 active:scale-95 transition-all">
+<span class="material-symbols-outlined">undo</span>
+</button>
+</header>
+<main class="flex-1 relative px-4 flex flex-col justify-center">
+<div class="absolute inset-x-6 top-1/2 -translate-y-[calc(50%+16px)] h-[72%] bg-card-dark/40 rounded-[32px] scale-95 origin-bottom border border-white/5"></div>
+<div class="relative z-10 w-full h-[85%] bg-card-dark rounded-[32px] card-shadow-vibrant border border-white/10 overflow-hidden flex flex-col">
+<div class="h-44 bg-slate-900 relative overflow-hidden">
+<img alt="Tech workspace" class="w-full h-full object-cover opacity-60" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5pksmkB2xShbY9dd37xjD4JHeim6IJSJjfszR-cCSxsPRCdl2UCrXRjHouTF_6YUNbf--GfO0DfkK0TsYHvQ5r3_zBll2akrAfFUzQVJ7JeeK21Wof1izKtOp3GgPd7aR21zKnghJ9LRCFJL2Iei2_1CILIradcO71BzEtbmrG4V47modZsXjo1O3EjaxX853AckMZF7KDhOOuL-Der_Indvg_KHEeORuo1nciS-2XZDNNdZNuX8xFYFUgisHYi1-EHhxqEXdSN0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-card-dark via-transparent to-transparent"></div>
+<div class="absolute bottom-4 left-4 flex items-center gap-3">
+<div class="w-14 h-14 bg-white rounded-xl p-2 shadow-xl">
+<img alt="Company Logo" class="w-full h-full object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu8lqFbNueiCkgIT-JQVegDgAtZOMuJ9FBVse5rrw1zJejchyTkFbRGjQcvGyPzLPCUQDLYKLx7ytsqoVqm7wmkdPxijxPiHpmBvKsnUZPHkltgFWGp08rMl9pI_SqrwE-TTMX8XiR8v3BJQBQNptNu0hyOWBREMOVyf3yskJ7ptlVL8jA5bvUn68Bc9Pz9fYjveHb6GbB0y751Ql6SSg3eA7KtyT2psCvhol8OktaczOWluUyPOrw5aFEAQO3-RNX6oaToCg5eZ8"/>
+</div>
+</div>
+</div>
+<div class="p-6 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-1">
+<h2 class="text-2xl font-bold leading-tight text-white">Software Engineer</h2>
+<span class="text-primary font-bold text-[10px] tracking-widest uppercase bg-primary/20 border border-primary/30 px-2.5 py-1 rounded-lg">Hot</span>
+</div>
+<p class="text-slate-400 font-medium mb-5">TechNexus Solutions</p>
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">payments</span>
+<span class="text-lg font-semibold text-white">$120k - $160k</span>
+<span class="text-slate-500 text-sm">/ year</span>
+</div>
+<div class="space-y-5">
+<div>
+<h3 class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-3">Required Skills</h3>
+<div class="flex flex-wrap gap-2">
+<span class="px-3.5 py-1.5 bg-cyan-950/40 border border-neon-cyan/30 text-neon-cyan rounded-full text-xs font-semibold">React</span>
+<span class="px-3.5 py-1.5 bg-fuchsia-950/40 border border-neon-magenta/30 text-neon-magenta rounded-full text-xs font-semibold">Node.js</span>
+<span class="px-3.5 py-1.5 bg-amber-950/40 border border-neon-amber/30 text-neon-amber rounded-full text-xs font-semibold">TypeScript</span>
+<span class="px-3.5 py-1.5 bg-slate-800/60 border border-white/10 text-slate-300 rounded-full text-xs font-semibold">PostgreSQL</span>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-2">
+<h3 class="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500">Match Rating</h3>
+<span class="text-xs font-bold text-primary">85% Match</span>
+</div>
+<div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden p-[1px]">
+<div class="bg-primary h-full w-[85%] rounded-full shadow-[0_0_8px_rgba(204,220,57,0.5)]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="px-6 pb-12 pt-6 flex justify-center items-center gap-6">
+<button class="w-14 h-14 rounded-full bg-card-dark-lighter btn-glow-red flex items-center justify-center text-rose-500 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-3xl font-bold">close</span>
+</button>
+<button class="w-20 h-20 rounded-full bg-primary shadow-2xl shadow-primary/40 flex items-center justify-center text-bg-midnight active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<button class="w-14 h-14 rounded-full bg-card-dark-lighter btn-glow-torre flex items-center justify-center text-primary active:scale-90 transition-transform">
+<svg class="w-8 h-8 fill-current drop-shadow-[0_0_5px_rgba(204,220,57,0.6)]" viewBox="0 0 24 24">
+<path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z"></path>
+</svg>
+</button>
+</footer>
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-white/10 rounded-full"></div>
+</div>
+<button class="fixed top-4 right-4 bg-card-dark-lighter p-3 rounded-full shadow-lg border border-white/10" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined text-primary">magic_button</span>
+</button>
+
+</body></html>

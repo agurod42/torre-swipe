@@ -1,0 +1,368 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Torre API",
+    "version": "1.0.0",
+    "description": "Torre public API for searching opportunities and talent."
+  },
+  "servers": [
+    {
+      "url": "https://search.torre.co",
+      "description": "Torre Search API"
+    }
+  ],
+  "paths": {
+    "/opportunities/_search": {
+      "post": {
+        "summary": "Search opportunities",
+        "description": "Search for job opportunities using structured filters. Supports keyword search, language requirements, skill/role requirements, and status filters.",
+        "operationId": "searchOpportunities",
+        "tags": ["Opportunities"],
+        "parameters": [
+          {
+            "name": "params",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "enum": [""] },
+            "description": "Flag to enable parameter mode (pass empty string)."
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "example": "USD" },
+            "description": "Currency code for compensation normalization (e.g. USD, EUR)."
+          },
+          {
+            "name": "periodicity",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": ["hourly", "monthly", "yearly"]
+            },
+            "description": "Periodicity used to normalize and display compensation amounts."
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "example": "en" },
+            "description": "Language code for the response content (ISO 639-1)."
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "integer", "example": 10, "default": 10 },
+            "description": "Number of results to return per page."
+          },
+          {
+            "name": "contextFeature",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string", "example": "job_feed" },
+            "description": "Context feature identifier for ranking/scoring tuning."
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SearchRequest" },
+              "example": {
+                "and": [
+                  { "keywords": { "term": "Designer", "locale": "en" } },
+                  { "language": { "term": "English", "fluency": "fully-fluent" } },
+                  { "skill/role": { "text": "Design systems", "proficiency": "expert" } },
+                  { "skill/role": { "text": "Product design", "proficiency": "expert" } },
+                  { "status": { "code": "open" } }
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful search response.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SearchResponse" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SearchRequest": {
+        "type": "object",
+        "description": "Root search query object. All top-level keys are logical operators.",
+        "properties": {
+          "and": {
+            "type": "array",
+            "description": "All conditions in this array must match (logical AND).",
+            "items": { "$ref": "#/components/schemas/SearchFilter" }
+          },
+          "or": {
+            "type": "array",
+            "description": "At least one condition in this array must match (logical OR).",
+            "items": { "$ref": "#/components/schemas/SearchFilter" }
+          },
+          "not": {
+            "type": "array",
+            "description": "None of the conditions in this array must match (logical NOT).",
+            "items": { "$ref": "#/components/schemas/SearchFilter" }
+          }
+        }
+      },
+      "SearchFilter": {
+        "type": "object",
+        "description": "A single search filter. Exactly one key should be present.",
+        "properties": {
+          "keywords": {
+            "type": "object",
+            "description": "Free-text keyword filter.",
+            "required": ["term"],
+            "properties": {
+              "term": { "type": "string", "description": "The keyword to search for.", "example": "Designer" },
+              "locale": { "type": "string", "description": "Language locale of the term (ISO 639-1).", "example": "en" }
+            }
+          },
+          "language": {
+            "type": "object",
+            "description": "Required language filter.",
+            "required": ["term"],
+            "properties": {
+              "term": { "type": "string", "description": "Language name.", "example": "English" },
+              "fluency": {
+                "type": "string",
+                "description": "Required fluency level.",
+                "enum": ["basic", "conversational", "fully-fluent", "native", "fluent"],
+                "example": "fully-fluent"
+              }
+            }
+          },
+          "skill/role": {
+            "type": "object",
+            "description": "Required skill or role filter.",
+            "required": ["text"],
+            "properties": {
+              "text": { "type": "string", "description": "Skill or role name.", "example": "Design systems" },
+              "proficiency": {
+                "type": "string",
+                "description": "Required proficiency level.",
+                "enum": ["no-experience-required", "beginner", "proficient", "expert"],
+                "example": "expert"
+              }
+            }
+          },
+          "status": {
+            "type": "object",
+            "description": "Opportunity status filter.",
+            "required": ["code"],
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Status code.",
+                "enum": ["open", "closed", "paused"],
+                "example": "open"
+              }
+            }
+          }
+        }
+      },
+      "SearchResponse": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "description": "Total number of matching opportunities.",
+            "example": 42
+          },
+          "size": {
+            "type": "integer",
+            "description": "Number of results returned in this page.",
+            "example": 10
+          },
+          "results": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Opportunity" }
+          }
+        }
+      },
+      "Opportunity": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "example": "QwejvMMd" },
+          "objective": { "type": "string", "description": "Job title / objective.", "example": "Staff Product Designer" },
+          "slug": { "type": "string", "example": "floqast-staff-product-designer-platformdesign-systems" },
+          "tagline": { "type": "string", "example": "You'll architect AI-driven experiences." },
+          "theme": { "type": "string", "example": "default" },
+          "type": {
+            "type": "string",
+            "enum": ["full-time-employment", "part-time-employment", "contractor", "freelance"],
+            "example": "full-time-employment"
+          },
+          "opportunity": {
+            "type": "string",
+            "enum": ["employee", "freelancer"],
+            "example": "employee"
+          },
+          "organizations": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Organization" }
+          },
+          "locations": {
+            "type": "array",
+            "items": { "type": "string" },
+            "example": ["United States"]
+          },
+          "timezones": {
+            "type": "array",
+            "nullable": true,
+            "items": { "type": "string" }
+          },
+          "remote": { "type": "boolean", "example": true },
+          "external": { "type": "boolean", "example": true },
+          "deadline": { "type": "string", "format": "date-time", "nullable": true },
+          "created": { "type": "string", "format": "date-time", "example": "2025-11-16T02:19:18.000Z" },
+          "status": { "type": "string", "enum": ["open", "closed", "paused"], "example": "open" },
+          "commitment": { "type": "string", "enum": ["full-time", "part-time"], "example": "full-time" },
+          "externalApplicationUrl": { "type": "string", "format": "uri", "nullable": true },
+          "compensation": { "$ref": "#/components/schemas/Compensation" },
+          "skills": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Skill" }
+          },
+          "members": {
+            "type": "array",
+            "items": { "type": "object" }
+          },
+          "place": { "$ref": "#/components/schemas/Place" },
+          "questions": {
+            "type": "array",
+            "items": { "type": "object" }
+          },
+          "context": {
+            "type": "object",
+            "properties": {
+              "signaled": { "type": "array", "items": { "type": "string" } },
+              "applicationStatus": { "type": "string", "nullable": true }
+            }
+          },
+          "additionalCompensation": {
+            "type": "array",
+            "items": { "type": "object" }
+          },
+          "additionalCompensationDetails": { "type": "object" },
+          "_meta": { "$ref": "#/components/schemas/ResultMeta" }
+        }
+      },
+      "Organization": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "example": 745456 },
+          "hashedId": { "type": "string", "example": "0Za46R4q" },
+          "name": { "type": "string", "example": "FloQast" },
+          "status": { "type": "string", "example": "approved" },
+          "size": { "type": "integer", "example": 839 },
+          "publicId": { "type": "string", "example": "FloQast" },
+          "picture": { "type": "string", "format": "uri" },
+          "theme": { "type": "string", "example": "default" }
+        }
+      },
+      "Compensation": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "code": { "type": "string", "enum": ["range", "fixed"], "example": "range" },
+              "currency": { "type": "string", "example": "USD" },
+              "minAmount": { "type": "number", "example": 164000.0 },
+              "minHourlyUSD": { "type": "number", "example": 85.42 },
+              "maxAmount": { "type": "number", "example": 246000.0 },
+              "maxHourlyUSD": { "type": "number", "example": 128.13 },
+              "periodicity": { "type": "string", "enum": ["hourly", "monthly", "yearly"], "example": "yearly" },
+              "negotiable": { "type": "boolean", "example": false },
+              "conversionRateUSD": { "type": "number", "example": 1.0 }
+            }
+          },
+          "visible": { "type": "boolean", "example": true },
+          "additionalCompensationDetails": { "type": "object" }
+        }
+      },
+      "Skill": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "example": "Figma" },
+          "experience": {
+            "type": "string",
+            "enum": ["potential-to-develop", "applying", "leading"],
+            "example": "potential-to-develop"
+          },
+          "proficiency": {
+            "type": "string",
+            "enum": ["no-experience-required", "beginner", "proficient", "expert"],
+            "example": "expert"
+          }
+        }
+      },
+      "Place": {
+        "type": "object",
+        "properties": {
+          "remote": { "type": "boolean", "example": true },
+          "anywhere": { "type": "boolean", "example": false },
+          "timezone": { "type": "boolean", "example": false },
+          "locationType": {
+            "type": "string",
+            "enum": ["remote_countries", "anywhere", "timezone", "onsite"],
+            "example": "remote_countries"
+          },
+          "location": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string", "example": "United States" },
+                "timezone": { "type": "number", "example": -6.0 },
+                "countryCode": { "type": "string", "nullable": true },
+                "latitude": { "type": "number", "example": 37.09024 },
+                "longitude": { "type": "number", "example": -95.712891 }
+              }
+            }
+          }
+        }
+      },
+      "ResultMeta": {
+        "type": "object",
+        "description": "Internal scoring and ranking metadata for this result.",
+        "properties": {
+          "rank": {
+            "type": "object",
+            "properties": {
+              "position": { "type": "integer", "example": 1 },
+              "value": { "type": "number", "example": 0.8 },
+              "boostedValue": { "type": "number", "example": 0.977 }
+            }
+          },
+          "scorer": {
+            "type": "object",
+            "description": "Recursive scoring tree produced by the search engine.",
+            "properties": {
+              "@type": { "type": "string", "example": "and" },
+              "score": { "type": "number" },
+              "min": { "type": "number" },
+              "max": { "type": "number" },
+              "uncertain": { "type": "boolean" },
+              "rank": { "type": "number" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

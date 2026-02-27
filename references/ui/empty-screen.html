@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Torre Swipe - Empty State Vibrant Dark</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#CCDC39",
+                        "bg-midnight": "#0B0E14",
+                        "card-dark": "#1C1F26",
+                        "card-dark-lighter": "#282C35",
+                        "neon-cyan": "#A5F3FC",
+                        "neon-magenta": "#FBCFE8",
+                        "neon-amber": "#FDE68A",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "16px",
+                    },
+                },
+            },
+        };
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                font-family: 'Inter', sans-serif;
+                -webkit-tap-highlight-color: transparent;
+                @apply bg-bg-midnight text-slate-100;
+            }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glow-text-primary {
+            text-shadow: 0 0 12px rgba(204, 220, 57, 0.4);
+        }
+        .glow-emoji {
+            text-shadow: 0 0 30px rgba(204, 220, 57, 0.3);
+        }
+        .btn-refresh-shadow {
+            box-shadow: 0 8px 24px -4px rgba(204, 220, 57, 0.4);
+        }
+    </style>
+<style>
+        body {
+            min-height: max(812px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="flex justify-center items-center min-h-screen p-4 overflow-hidden">
+<div class="relative w-full max-w-[400px] h-[812px] bg-bg-midnight overflow-hidden flex flex-col rounded-[48px] border-[8px] border-slate-800 shadow-2xl">
+<div class="flex justify-between items-center px-8 pt-4 pb-2 text-white/90">
+<span class="text-sm font-semibold">9:41</span>
+<div class="flex gap-1.5 items-center">
+<span class="material-symbols-outlined text-[18px]">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[18px]">wifi</span>
+<span class="material-symbols-outlined text-[18px]">battery_full</span>
+</div>
+</div>
+<header class="flex justify-between items-center px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-9 h-9 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-bg-midnight font-bold">bolt</span>
+</div>
+<h1 class="text-xl font-bold tracking-tight text-white glow-text-primary">Torre Swipe</h1>
+</div>
+<button class="w-10 h-10 bg-card-dark-lighter rounded-full flex items-center justify-center text-slate-500 border border-white/5 opacity-50 cursor-not-allowed">
+<span class="material-symbols-outlined">undo</span>
+</button>
+</header>
+<main class="flex-1 flex flex-col items-center justify-center px-8 text-center">
+<div class="relative mb-8">
+<div class="absolute inset-0 bg-primary/20 blur-[60px] rounded-full scale-150"></div>
+<span class="text-8xl relative z-10 glow-emoji">🎉</span>
+</div>
+<h2 class="text-2xl font-bold text-white mb-2">You've seen all jobs!</h2>
+<p class="text-slate-400 text-base mb-10 max-w-[240px] leading-relaxed">
+                Check back later for more opportunities.
+            </p>
+<button class="group relative flex items-center gap-3 bg-primary px-8 py-4 rounded-2xl text-bg-midnight font-bold text-lg active:scale-95 transition-all btn-refresh-shadow">
+<span class="material-symbols-outlined font-bold group-active:rotate-180 transition-transform duration-500">refresh</span>
+                Refresh
+            </button>
+</main>
+<footer class="px-6 pb-12 pt-6 flex justify-center items-center gap-6 opacity-40 grayscale-[0.5]">
+<button class="w-14 h-14 rounded-full bg-card-dark-lighter border border-rose-500/20 flex items-center justify-center text-rose-500/50 cursor-not-allowed">
+<span class="material-symbols-outlined text-3xl font-bold">close</span>
+</button>
+<button class="w-20 h-20 rounded-full bg-primary/50 flex items-center justify-center text-bg-midnight/50 cursor-not-allowed">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+<button class="w-14 h-14 rounded-full bg-card-dark-lighter border border-blue-500/20 flex items-center justify-center text-blue-400/50 cursor-not-allowed">
+<span class="material-symbols-outlined text-3xl font-bold">grade</span>
+</button>
+</footer>
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-white/10 rounded-full"></div>
+</div>
+<button class="fixed top-4 right-4 bg-card-dark-lighter p-3 rounded-full shadow-lg border border-white/10 opacity-30">
+<span class="material-symbols-outlined text-primary">magic_button</span>
+</button>
+
+</body></html>
